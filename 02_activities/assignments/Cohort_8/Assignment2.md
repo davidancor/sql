@@ -53,9 +53,11 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
-```
-Your answer...
-```
+Architecture 1 (Type 1 – overwrite):
+Store one address per customer (either directly on the CUSTOMER table or in a 1:1 CUSTOMER_ADDRESS table keyed by customer_id). When a customer moves, we update the existing row. This approach keeps only the current address and does not preserve history.
+
+Architecture 2 (Type 2 – retain history):
+Create a separate CUSTOMER_ADDRESS table with a customer_address_id and allow multiple rows per customer. Each row includes start_date, end_date, and is_current. When a customer moves, we close the old row and insert a new one. This preserves the full history of address changes.
 
 ***
 
